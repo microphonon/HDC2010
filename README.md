@@ -16,3 +16,5 @@ P3.0  SDA with 10k pullup
 <br>P3.1  SCL with 10k pullup
 <br>P3.3  TXD
 <br>P3.4  RXD
+
+Mouser product video: https://www.youtube.com/watch?v=p8QBYTFYhUg
