@@ -1,6 +1,6 @@
 # HDC2010
  
-<b>HDC2010.c</b>   Demo code to continuously read and display temperature and humidity data from TI HDC2010 using MSP430F5529 Launchpad.
+<b>HDC2010.c</b>   Demo code to continuously read and display temperature and humidity data from Texas Instruments HDC2010 using MSP430F5529 Launchpad.
 Device is periodically polled by the MCU in on-demand mode. No temp or humidity threshold interrupts.
 Low-level I2C communication using registers, interrupts, and MCU LPM0 mode. Display data on terminal program.
 Temperature resolution: 14-bit and displayed with 4 significant figures.
