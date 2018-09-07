@@ -116,7 +116,7 @@ __interrupt void USCI_B0_ISR(void)
 		  else
 		  {
 		 	*PRxData = UCB0RXBUF;                // Move final RX data to PRxData(0)
-		 	LPM0_EXIT; 							 // Exit active CPU
+		 	LPM0_EXIT; 						
 		  }
 		  break;
 	  case 12:                                  // Vector 12: TXIFG
@@ -129,7 +129,7 @@ __interrupt void USCI_B0_ISR(void)
 	    {
 	      UCB0CTL1 |= UCTXSTP;                  // I2C stop condition
 	      UCB0IFG &= ~UCTXIFG;                  // Clear USCI_B0 TX int flag
-	      LPM0_EXIT; 							// Exit LPM0
+	      LPM0_EXIT; 			
 	    }
 	    break;
 	   default: break;
@@ -139,43 +139,43 @@ __interrupt void USCI_B0_ISR(void)
  void SetPins(void)
   {
  	 /* Port 1
- 	  * P1.0 Red LED
- 	    */
- 	    P1DIR |= BIT0 + BIT1 + BIT2 + BIT3 + BIT4 + BIT5 + BIT6 + BIT7;
- 	    P1OUT &= ~BIT0; //LED off
+ 	 P1.0 Red LED
+ 	 */
+ 	P1DIR |= BIT0 + BIT1 + BIT2 + BIT3 + BIT4 + BIT5 + BIT6 + BIT7;
+ 	P1OUT &= ~BIT0; //LED off
 
- 	    /* Port 2
- 	    P2.1  Button on Launchpad
- 	    */
- 	   	P2DIR |= BIT0 + BIT1 + BIT2 + BIT3 + BIT4 + BIT5 + BIT6 + BIT7;
+ 	/* Port 2
+ 	P2.1  Button on Launchpad
+ 	*/
+ 	P2DIR |= BIT0 + BIT1 + BIT2 + BIT3 + BIT4 + BIT5 + BIT6 + BIT7;
 
- 	    /* Port 3 
- 	   P3.0  SDA
- 	   P3.1  SCL
- 	   P3.3	 TXD
- 	   P3.4  RXD
- 	   */
- 	    P3SEL |=  BIT0 + BIT1 + BIT3 + BIT4; //Set the I2C and UART lines
- 	    P3DIR |= BIT2 + BIT5 + BIT6 + BIT7;
+	/* Port 3 
+	P3.0  SDA
+ 	P3.1  SCL
+	P3.3 TXD
+ 	P3.4  RXD
+ 	*/
+ 	P3SEL |=  BIT0 + BIT1 + BIT3 + BIT4; //Set the I2C and UART lines
+ 	P3DIR |= BIT2 + BIT5 + BIT6 + BIT7;
 
- 	    /* Port 4
- 	   P4.1 -- 4.6 unused
- 	   P4.7 Green LED
- 	   */
- 	   P4DIR |= BIT0 + BIT1 + BIT2 + BIT3 + BIT4 + BIT5 + BIT6 + BIT7;
- 	   P4OUT &= ~BIT7; //Green LED off
+ 	/* Port 4
+ 	P4.1 -- 4.6 unused
+ 	P4.7 Green LED
+ 	*/
+ 	P4DIR |= BIT0 + BIT1 + BIT2 + BIT3 + BIT4 + BIT5 + BIT6 + BIT7;
+ 	P4OUT &= ~BIT7; //Green LED off
 
- 	   /* Port 5
- 	   P5.0 Unused
- 	   P5.1 Unused
- 	   P5.2--P5.5 grounded or open as per spec sheet
- 	   */
- 	   P5DIR |= BIT0 + BIT1 + BIT2 + BIT3 + BIT4 + BIT5 + BIT6 + BIT7;
+ 	/* Port 5
+ 	P5.0 Unused
+ 	P5.1 Unused
+ 	P5.2--P5.5 grounded or open as per spec sheet
+ 	*/
+ 	P5DIR |= BIT0 + BIT1 + BIT2 + BIT3 + BIT4 + BIT5 + BIT6 + BIT7;
 
- 	   /* Port 6
- 	   P6.0--6.7 unused
- 	   */
- 	   P6DIR |= BIT0 + BIT1 + BIT2 + BIT3 + BIT4 + BIT5 + BIT6 + BIT7;
+	/* Port 6
+ 	P6.0--6.7 unused
+ 	*/
+ 	P6DIR |= BIT0 + BIT1 + BIT2 + BIT3 + BIT4 + BIT5 + BIT6 + BIT7;
   }
 
  void SetVLO(void)
