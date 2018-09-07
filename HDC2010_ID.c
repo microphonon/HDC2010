@@ -57,10 +57,8 @@ void main(void) {
     	P4OUT |= BIT7; //Timeout. Turn on green LED on Launchpad
 
     	UCB0IE |= UCTXIE + UCRXIE; //Enable TX and RX I2C interrupts
-
-    	GetID();	//Get manufacturer ID bytes
-
-       	UCB0IE &= ~(UCRXIE + UCTXIE); //Disable I2C interrupts
+    	GetID();	//Get 4 ID bytes
+      	UCB0IE &= ~(UCRXIE + UCTXIE); //Disable I2C interrupts
 
     	//Display ID bytes as hex on terminal
     	sprintf(str,"%s %#X %#X %#X %#X%s", "ID:", *(PRxData+3),*(PRxData+2),*(PRxData+1),*PRxData,"\r\n");
@@ -69,7 +67,7 @@ void main(void) {
     		{
     	     	 while (!(UCA0IFG & UCTXIFG)); //Poll serial: USCI_A0 TX buffer ready?
     	     	 UCA0TXBUF = str[i]; //Send data 1 byte at a time
-    	     }
+    		}
     	P4OUT &= ~BIT7; //Turn off green LED
     	}
 }
@@ -105,17 +103,17 @@ __interrupt void USCI_B0_ISR(void)
 		  }
 		  break;
 	  case 12:                                  // Vector 12: TXIFG
-	    if (TXByteCtr)                          // Check TX byte counter
-	    {
-	      UCB0TXBUF = *PTxData++;               // Load TX buffer
-	      TXByteCtr--;                          // Decrement TX byte counter
-	    }
-	    else
-	    {
-	      UCB0CTL1 |= UCTXSTP;                  // I2C stop condition
-	      UCB0IFG &= ~UCTXIFG;                  // Clear USCI_B0 TX int flag
-	      LPM0_EXIT; 							// Exit LPM0
-	    }
+	    	if (TXByteCtr)                      // Check TX byte counter
+	    	{
+	      		UCB0TXBUF = *PTxData++;     // Load TX buffer
+	      		TXByteCtr--;                // Decrement TX byte counter
+	    	}
+	    	else
+	    	{
+	      		UCB0CTL1 |= UCTXSTP;     // I2C stop condition
+	      		UCB0IFG &= ~UCTXIFG;    // Clear USCI_B0 TX int flag
+	      		LPM0_EXIT; 		// Exit LPM0
+	    	}
 	    break;
 	   default: break;
 	  }
