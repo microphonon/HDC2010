@@ -120,18 +120,18 @@ __interrupt void USCI_B0_ISR(void)
 		  }
 		  break;
 	  case 12:                                  // Vector 12: TXIFG
-	    if (TXByteCtr)                          // Check TX byte counter
-	    {
-	      UCB0TXBUF = *PTxData++;               // Load TX buffer
-	      TXByteCtr--;                          // Decrement TX byte counter
-	    }
-	    else
-	    {
-	      UCB0CTL1 |= UCTXSTP;                  // I2C stop condition
-	      UCB0IFG &= ~UCTXIFG;                  // Clear USCI_B0 TX int flag
-	      LPM0_EXIT; 			
-	    }
-	    break;
+	    	if (TXByteCtr)                          // Check TX byte counter
+	    	{
+	      		UCB0TXBUF = *PTxData++;               // Load TX buffer
+	      		TXByteCtr--;                          // Decrement TX byte counter
+	    	}
+	    	else
+	    	{
+	      		UCB0CTL1 |= UCTXSTP;                  // I2C stop condition
+	      		UCB0IFG &= ~UCTXIFG;                  // Clear USCI_B0 TX int flag
+	      		LPM0_EXIT; 			
+	    	}
+	    	break;
 	   default: break;
 	  }
 }
