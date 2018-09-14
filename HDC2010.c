@@ -63,8 +63,15 @@ void main(void) {
     	P4OUT |= BIT7; //Timeout. Turn on green LED on Launchpad
 
     	UCB0IE |= UCTXIE + UCRXIE; //Enable TX and RX I2C interrupts
-    	Measure(); //Initiate measurement. No need to poll or wait for data ready interrupt
-    	GetData(); //Get T-H data
+    	Measure(); //Initiate measurement. 
+	/* Wait in LPM3 until data becomes available.  More delay time
+	for higher resolution. Two 14-bit measurements requires ~1.2 ms.
+	Consult data sheet. Could also put MSP430 in LPM4 and wakeup 
+	with DRDY placed on a separate pin */
+    	TA0CCR0 = 10; //10 = 1 ms
+    	LPM3;
+    	//Timeout, fetch the data
+    	GetData(); 
 	UCB0IE &= ~(UCRXIE + UCTXIE); //Disable I2C interrupts
 
     	//Process 16-bit raw temperature data
