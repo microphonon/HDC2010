@@ -49,7 +49,7 @@ void main(void) {
     SetI2C();
 
     _BIS_SR(GIE); //Enable global interrupts
-	UCB0IE |= UCTXIE + UCRXIE; //Enable TX and RX I2C interrupts
+    UCB0IE |= UCTXIE + UCRXIE; //Enable TX and RX I2C interrupts
 	
     while(1)
     {
@@ -57,9 +57,7 @@ void main(void) {
     	LPM3;		//Wait in low power mode
     	P4OUT |= BIT7; //Timeout. Turn on green LED on Launchpad
 
-    	
     	GetID();	//Get 4 ID bytes
-      	UCB0IE &= ~(UCRXIE + UCTXIE); //Disable I2C interrupts
 
     	//Display ID bytes as hex on terminal
     	sprintf(str,"%s %#X %#X %#X %#X%s", "ID:", *(PRxData+3),*(PRxData+2),*(PRxData+1),*PRxData,"\r\n");
