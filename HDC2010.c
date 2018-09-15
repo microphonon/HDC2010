@@ -255,10 +255,10 @@ __interrupt void USCI_B0_ISR(void)
 
  void GetData(void)
  {
-	const uint8_t ReadData[] = {0x00}; //Start address of the 4 data bytes; register address auto-increments
+	const uint8_t ReadData[] = {0x00,0x01,0x02,0x03}; //Start address of the 4 data bytes; register address auto-increments
 	UCB0CTL1 |= UCTR;  //Set as transmitter
 	PTxData = (uint8_t *)ReadData;    
-	TXByteCtr = 1;              // Load TX byte counter
+	TXByteCtr = 4;              // Load TX byte counter
 	UCB0CTL1 |= UCTXSTT; 
 	LPM0;                 
 	while (UCB0CTL1 & UCTXSTP);  // Ensure stop condition got sent
