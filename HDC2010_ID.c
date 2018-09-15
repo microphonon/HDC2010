@@ -49,14 +49,15 @@ void main(void) {
     SetI2C();
 
     _BIS_SR(GIE); //Enable global interrupts
-
+	UCB0IE |= UCTXIE + UCRXIE; //Enable TX and RX I2C interrupts
+	
     while(1)
     {
     	TA0CCR0 = PERIOD; //Looping period with VLO
     	LPM3;		//Wait in low power mode
     	P4OUT |= BIT7; //Timeout. Turn on green LED on Launchpad
 
-    	UCB0IE |= UCTXIE + UCRXIE; //Enable TX and RX I2C interrupts
+    	
     	GetID();	//Get 4 ID bytes
       	UCB0IE &= ~(UCRXIE + UCTXIE); //Disable I2C interrupts
 
@@ -88,7 +89,7 @@ __interrupt void USCI_B0_ISR(void)
 	  case  4: break;                           // Vector  4: NACKIFG
 	  case  6: break;                           // Vector  6: STTIFG
 	  case  8: break;                           // Vector  8: STPIF
-	  case 10:
+	  case 10:				    // Vector  10: RXIFG
 		  RXByteCtr--;                            // Decrement RX byte counter
 		  if (RXByteCtr)
 		  {
@@ -197,10 +198,10 @@ __interrupt void USCI_B0_ISR(void)
 
  void GetID(void)
  {
-	     const uint8_t ReadID[] = {0xFC,0xFD,0xFE,0xFF};
+	     const uint8_t ReadID[] = {0xFC};
 	     UCB0CTL1 |= UCTR;  //Set as transmitter
 	     PTxData = (uint8_t *)ReadID;      // TX array start address
-	     TXByteCtr = 4;              // TX byte counter
+	     TXByteCtr = 1;              // TX byte counter
 	     UCB0CTL1 |= UCTXSTT;   // Start condition
 	     LPM0;                   // Remain in LPM0 until all data transmitted
 	     while (UCB0CTL1 & UCTXSTP);  // Ensure stop condition got sent
