@@ -112,7 +112,7 @@ __interrupt void USCI_B0_ISR(void)
 	  case  4: break;                           // Vector  4: NACKIFG
 	  case  6: break;                           // Vector  6: STTIFG
 	  case  8: break;                           // Vector  8: STPIF
-	  case 10:
+	  case 10:				    // Vector  10: RXIFG
 		  RXByteCtr--;                            // Decrement RX byte counter
 		  if (RXByteCtr)
 		  {
@@ -255,10 +255,10 @@ __interrupt void USCI_B0_ISR(void)
 
  void GetData(void)
  {
-	const uint8_t ReadData[] = {0x00,0x01,0x02,0x03}; //Read the 4 data bytes
+	const uint8_t ReadData[] = {0x00}; //Start address of the 4 data bytes; register address auto-increments
 	UCB0CTL1 |= UCTR;  //Set as transmitter
 	PTxData = (uint8_t *)ReadData;    
-	TXByteCtr = 4;              // Load TX byte counter
+	TXByteCtr = 1;              // Load TX byte counter
 	UCB0CTL1 |= UCTXSTT; 
 	LPM0;                 
 	while (UCB0CTL1 & UCTXSTP);  // Ensure stop condition got sent
