@@ -6,9 +6,9 @@ Low-level I2C communication using UCB0 registers, interrupts, and MCU LPM0 mode.
 Temperature resolution: 14-bit displayed with 4 significant figures.
 Humidity resolution: 11-bit displayed with 3 significant figures. Ground the ADR pin to set slave address at 0X40.
 Sensor is briefly heated at startup/reset; heater draws 90 mA at 3.3V.
-Main loop runs with timed interrupt from LPM3 and VLO clock. I2C clock: 100 kHz using 10k pullup resistors; UART: 9600 baud.
+Main loop runs with timed interrupt from LPM3 and VLO clock; I2C clock: 100 kHz using 10k pullup resistors; UART: 9600 baud.
 IDE with CCS 6.1.3 and nofloat printf support.
 
-<p>Configuration registers for the Fx5xx and FR59xx families are not compatible; complete code for each is in the corresponding folders.
+<p>Configuration registers for the Fx5xx and FR59xx families are not compatible; complete code for each is in the corresponding directories.
 
 <p>Mouser product video: https://www.youtube.com/watch?v=p8QBYTFYhUg
