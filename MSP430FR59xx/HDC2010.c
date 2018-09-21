@@ -65,8 +65,8 @@ void main(void) {
     	P1OUT |= BIT0;
     	while(1){}
     }
-    /* 	Comment the following line to prevent pulsed heating after reset.
-    	CAUTION: Heater cannot be powered by VCC of the FR5969 Launchpad. */
+    /*	Comment the following line to prevent pulsed heating after reset.
+   	CAUTION: Heater cannot be powered by VCC of the FR5969 Launchpad. */
     Heater(); 
 
     while(1)
@@ -84,10 +84,10 @@ void main(void) {
     	GetData();	//Get T-H data
     	UCB0IE &= ~(UCRXIE0 + UCTXIE0); //Disable I2C interrupts
 
-       	//Process 16-bit raw temperature data
-       	T = ((uint16_t)(*(PRxData+2)) << 8)|(uint16_t)*(PRxData+3);
-       	//Convert temperature data
-       	TC = (((T<<14) + (T<<8) - (T<<7) - (T<<3) - (T<<2)) >> 16) - 0xFA0; //No decimal point
+  	//Process 16-bit raw temperature data
+   	T = ((uint16_t)(*(PRxData+2)) << 8)|(uint16_t)*(PRxData+3);
+    	//Convert temperature data
+   	TC = (((T<<14) + (T<<8) - (T<<7) - (T<<3) - (T<<2)) >> 16) - 0xFA0; //No decimal point
 
     	//Process 16-bit raw humidity data
         H = (uint16_t)(*PRxData << 8)|(uint16_t)*(PRxData+1);
