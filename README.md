@@ -9,4 +9,6 @@ Sensor is briefly heated at startup/reset; heater draws 90 mA at 3.3V.
 Main loop runs with timed interrupt from LPM3 and VLO clock. I2C clock 100 kHz using 10k pullup resistors; UART 9600 baud.
 IDE with CCS 6.1.3 and nofloat printf support.
 
-<br>Mouser product video: https://www.youtube.com/watch?v=p8QBYTFYhUg
+<p>Configuration registers for the Fx5xx and FR59xx families are not compatible; code is in the corresponding folders.
+
+<p>Mouser product video: https://www.youtube.com/watch?v=p8QBYTFYhUg
