@@ -98,10 +98,10 @@ void main(void) {
         		(int32_t)(HC/10),(int32_t)(HC%10),"%\r\n\n");
     	count = sizeof str;
     	for (i=0; i < count; i++)
-    		{
+   		{
     	     	 while (!(UCA1IFG & UCTXIFG)); //Poll serial: Is TX buffer empty?
     	     	 UCA1TXBUF = str[i]; //Send data 1 byte at a time
-    	     }
+   		}
     	P1OUT &= ~BIT0; //Turn off green LED
     	}
 }
